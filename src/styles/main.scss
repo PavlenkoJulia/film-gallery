@@ -1,0 +1,43 @@
+@import './reset.scss';
+@import './variables.scss';
+
+body {
+    background-color: $bg-dark;
+    padding: 70px;
+}
+
+@media (min-width: 1400px) {
+    body {
+        padding: 80px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    body {
+        padding: 70px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    body {
+        padding: 60px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    body {
+        padding: 50px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    body {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 575px) {
+    body {
+        padding: 30px;
+    }
+}

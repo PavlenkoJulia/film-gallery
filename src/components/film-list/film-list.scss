@@ -1,0 +1,131 @@
+@import '../../styles/variables.scss';
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    color: $light-gray;
+
+    &__title {
+        font-weight: 500;
+        font-size: 30px;
+    }
+
+    &__results {
+        font-size: 22px;
+        line-height: 120%;
+    }
+
+    &__films {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+    }
+
+    &__no-results {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        &--text {
+            font-size: 18px;
+            line-height: 120%;
+            font-weight: 400;
+        }
+
+        &--search {
+            background: $modal-bg;
+            border-radius: $btn-radius;
+            border: 1px solid $bg-primary;
+            color: $light-gray;
+            padding: 12px 24px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+            &:hover {
+                background: lighten($light-gray, 10%);
+                transform: translateY(-2px) scale(1.02);
+                color: $dark-gray;
+            }
+
+            &:active {
+                transform: translateY(0) scale(1);
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    .list {
+        &__films {
+            gap: 32px;
+        }
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .list {
+        &__films {
+            gap: 28px;
+        }
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .list {
+        &__films {
+            gap: 24px;
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .list {
+        &__films {
+            gap: 20px;
+            justify-content: center;
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .list {
+        gap: 16px;
+
+        &__title {
+            font-size: 26px;
+        }
+
+        &__results {
+            font-size: 18px;
+        }
+
+        &__films {
+            gap: 16px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .list {
+        gap: 14px;
+
+        &__title {
+            font-size: 24px;
+        }
+
+        &__results {
+            font-size: 16px;
+        }
+
+        &__films {
+            gap: 16px;
+            justify-content: center;
+        }
+
+        &__no-results {
+            &--text {
+                font-size: 16px;
+            }
+        }
+    }
+}

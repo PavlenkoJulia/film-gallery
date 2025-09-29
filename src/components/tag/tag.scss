@@ -1,0 +1,46 @@
+@import '../../styles/variables.scss';
+
+.tag {
+    background: $text-secondary;
+    border-radius: 6px;
+    padding: 3px 15px;
+    backdrop-filter: blur(20px);
+
+    &__title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 133%;
+        color: $light-gray;
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .tag {
+        padding: 3px 12px;
+        
+        &__title {
+            font-size: 16px;
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .tag {
+        padding: 2px 10px;
+        
+        &__title {
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .tag {
+        padding: 2px 8px;
+        
+        &__title {
+            font-size: 12px;
+        }
+    }
+}

@@ -1,0 +1,130 @@
+@import '../../styles/variables.scss';
+
+.search {
+    width: 100%;
+
+    &__container {
+        position: relative;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    &__icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $light-gray;
+        z-index: 2;
+    }
+
+    &__input {
+        width: 100%;
+        padding: 16px 16px 16px 48px;
+        background: $modal-bg;
+        border: 1px solid $bg-primary;
+        border-radius: $btn-radius;
+        color: $light-gray;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 150%;
+        transition: all 0.3s ease;
+
+        &::placeholder {
+            color: rgba($light-gray, 0.7);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $text-secondary;
+            box-shadow: 0 0 0 2px rgba($text-secondary, 0.1);
+        }
+
+        &:hover {
+            border-color: rgba($text-secondary, 0.5);
+        }
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .search {
+
+        &__container {
+            max-width: 450px;
+        }
+
+        &__input {
+            padding: 15px 15px 15px 46px;
+            font-size: 15px;
+        }
+
+        &__icon {
+            left: 15px;
+            width: 18px;
+            height: 18px;
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .search {
+
+        &__container {
+            max-width: 400px;
+        }
+
+        &__input {
+            padding: 14px 14px 14px 44px;
+            font-size: 15px;
+            border-radius: 10px;
+        }
+
+        &__icon {
+            left: 14px;
+            width: 17px;
+            height: 17px;
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .search {
+
+        &__container {
+            max-width: 350px;
+        }
+
+        &__input {
+            padding: 13px 13px 13px 42px;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+
+        &__icon {
+            left: 13px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .search {
+
+        &__container {
+            max-width: 100%;
+        }
+
+        &__input {
+            padding: 12px 12px 12px 40px;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        &__icon {
+            left: 12px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+}

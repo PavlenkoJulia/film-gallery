@@ -1,0 +1,35 @@
+@import '../../styles/variables.scss';
+
+.rating {
+
+    &__num {
+        color: $light-gray;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 133%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .rating {
+        &__num {
+            font-size: 16px;
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .rating {
+        &__num {
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .rating {
+        &__num {
+            font-size: 12px;
+        }
+    }
+}

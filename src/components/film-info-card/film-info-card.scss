@@ -1,0 +1,237 @@
+@import '../../styles/variables.scss';
+
+.info-card {
+    display: flex;
+    padding: 20px;
+    gap: 30px;
+    background: $modal-bg;
+    min-height: max-content;
+    width: 100%;
+
+    &__tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    &__left {
+        flex-shrink: 0;
+        width: 250px;
+        height: 350px;
+
+        &--poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    }
+
+    &__right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        color: $light-gray;
+        min-width: 0;
+
+        &--title {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 125%;
+            max-width: 100%;
+        }
+
+        &--year {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 133%;
+        }
+
+        &--description {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 150%;
+        }
+
+        &--additional {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+.divider {
+    width: 2px;
+    height: 20px;
+    background-color: $light-gray;
+    flex-shrink: 0;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .info-card {
+        padding: 18px;
+        gap: 25px;
+        
+        &__left {
+            width: 230px;
+            height: 330px;
+        }
+        
+        &__right {
+            &--title {
+                font-size: 28px;
+            }
+            
+            &--year {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .info-card {
+        flex-direction: row;
+        padding: 16px;
+        gap: 20px;
+        align-items: flex-start;
+
+        &__left {
+            width: 120px;
+            height: 180px;
+
+            &--poster {
+                border-radius: 8px;
+            }
+        }
+
+        &__right {
+            gap: 12px;
+
+            &--title {
+                font-size: 24px;
+            }
+
+            &--additional {
+                gap: 12px;
+            }
+
+            &--year {
+                font-size: 16px;
+            }
+
+            &--description {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+        }
+
+        &__tags {
+            gap: 6px;
+            
+            .tag {
+                font-size: 12px;
+                padding: 4px 10px;
+            }
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .info-card {
+        flex-direction: row;
+        padding: 14px;
+        gap: 16px;
+
+        &__left {
+            width: 100px;
+            height: 150px;
+        }
+
+        &__right {
+            gap: 10px;
+
+            &--title {
+                font-size: 20px;
+            }
+
+            &--additional {
+                gap: 10px;
+            }
+
+            &--year {
+                font-size: 14px;
+            }
+
+            &--description {
+                font-size: 13px;
+                line-height: 1.4;
+                overflow: hidden;
+            }
+        }
+
+        &__tags {
+            gap: 5px;
+            
+            .tag {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .info-card {
+        flex-direction: row;
+        padding: 12px;
+        gap: 16px;
+        align-items: center;
+
+        &__left {
+            width: 120px;
+            height: 180px;
+            
+            &--poster {
+                border-radius: 10px;
+            }
+        }
+
+        &__right {
+            gap: 12px;
+
+            &--title {
+                font-size: 22px;
+            }
+
+            &--additional {
+                gap: 10px;
+            }
+
+            &--year {
+                font-size: 12px;
+            }
+
+            &--description {
+                font-size: 12px;
+                line-height: 1.2;
+                text-align: left;
+                max-height: 120px;
+                overflow-y: auto;
+                padding-right: 8px;
+            }
+        }
+
+        &__tags {
+            gap: 6px;
+            
+            .tag {
+                font-size: 12px;
+                padding: 4px 10px;
+            }
+        }
+    }
+}
