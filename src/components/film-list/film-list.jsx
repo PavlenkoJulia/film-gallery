@@ -3,41 +3,16 @@ import './film-list.scss';
 import { FilmCard } from "../film-card/film-card";
 import { useFilms } from "../../hooks/useFilms";
 import { LoadingSpinner } from "../loading-spinner/loading-spinner";
-import { ErrorMessage } from "../error-message/error-message";
 
 export const FilmList = ({ searchQuery = "", onClearSearch }) => {
-    const { films, loading, error, refetch } = useFilms();
-
-    const filteredFilms = React.useMemo(() => {
-        if (!searchQuery.trim()) {
-            return films;
-        }
-
-        const query = searchQuery.toLowerCase().trim();
-        
-        return films.filter(film => {
-            const titleMatch = film.title?.toLowerCase().includes(query) || false;
-            
-            let genreMatch = false;
-            if (Array.isArray(film.genre)) {
-                genreMatch = film.genre.some(genre => 
-                    genre?.toLowerCase().includes(query)
-                );
-            } else if (typeof film.genre === 'string') {
-                genreMatch = film.genre.toLowerCase().includes(query);
-            }
-            
-            const yearMatch = film.year?.toString().includes(query) || false;
-
-            return titleMatch || genreMatch || yearMatch;
-        });
-    }, [films, searchQuery]);
-
-    const handleShowAllFilms = () => {
-        if (onClearSearch) {
-            onClearSearch();
-        }
-    };
+    const { 
+        filteredFilms, 
+        loading, 
+        error, 
+        refetch, 
+        hasSearch,
+        films: allFilms 
+    } = useFilms(searchQuery);
 
     if (loading) {
         return (
@@ -52,15 +27,20 @@ export const FilmList = ({ searchQuery = "", onClearSearch }) => {
         return (
             <section className="list">
                 <h1 className="list__title">Каталог фильмов</h1>
-                <ErrorMessage 
-                    message={error}
-                    onRetry={refetch}
-                />
+                <div className="list__error">
+                    <p className="list__error--text">{error}</p>
+                    <button 
+                        className="list__error--button"
+                        onClick={refetch}
+                    >
+                        Попробовать снова
+                    </button>
+                </div>
             </section>
         );
     }
 
-    if (films.length === 0) {
+    if (allFilms.length === 0) {
         return (
             <section className="list">
                 <h1 className="list__title">Каталог фильмов</h1>
@@ -79,7 +59,7 @@ export const FilmList = ({ searchQuery = "", onClearSearch }) => {
         );
     }
 
-    if (filteredFilms.length === 0 && searchQuery) {
+    if (hasSearch && filteredFilms.length === 0) {
         return (
             <section className="list">
                 <h1 className="list__title">Каталог фильмов</h1>
@@ -89,7 +69,7 @@ export const FilmList = ({ searchQuery = "", onClearSearch }) => {
                     </p>
                     <button 
                         className="list__no-results--search"
-                        onClick={handleShowAllFilms}
+                        onClick={onClearSearch}
                     >
                         Показать все фильмы
                     </button>
@@ -101,7 +81,7 @@ export const FilmList = ({ searchQuery = "", onClearSearch }) => {
     return (
         <section className="list">
             <h1 className="list__title">Каталог фильмов</h1>
-            {searchQuery && (
+            {hasSearch && (
                 <p className="list__results">
                     Найдено фильмов: {filteredFilms.length}
                 </p>

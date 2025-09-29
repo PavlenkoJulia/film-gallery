@@ -1,57 +1,74 @@
 import { useState, useEffect } from 'react';
 import { filmService } from '../services/filmService';
 
-export const useFilms = () => {
-  const [films, setFilms] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+export const useFilms = (searchQuery = '') => {
+    const [films, setFilms] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-  const loadFilms = async () => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      // Вариант 1: Всегда ошибка
-      // throw new Error('Тестовая ошибка: сервер недоступен');
-      
-      // Вариант 2: Ошибка с вероятностью 50%
-      // if (Math.random() > 0.5) {
-      //     throw new Error('Случайная ошибка загрузки');
-      // }
-      
-      // Вариант 3: Ошибка сети
-      // await new Promise((_, reject) => 
-      //     setTimeout(() => reject(new Error('Timeout: Сервер не отвечает')), 100)
-      // );
+    const filterFilms = (films, query) => {
+        if (!query.trim()) {
+            return films;
+        }
 
-      const data = await filmService.getFilms();
-      if (!data || !Array.isArray(data)) {
-        throw new Error('Некорректный формат данных с сервера');
-      }
-      if (data.length === 0) {
-        throw new Error('Нет доступных фильмов');
-      }
-      setFilms(data);
-    } catch (err) {
-      setError(err.message || 'Ошибка при загрузке фильмов');
-      setFilms([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const searchQuery = query.toLowerCase().trim();
+        
+        return films.filter(film => {
+            const titleMatch = film.title?.toLowerCase().includes(searchQuery) || false;
+            
+            let genreMatch = false;
+            if (Array.isArray(film.genre)) {
+                genreMatch = film.genre.some(genre => 
+                    genre?.toLowerCase().includes(searchQuery)
+                );
+            } else if (typeof film.genre === 'string') {
+                genreMatch = film.genre.toLowerCase().includes(searchQuery);
+            }
+            
+            const yearMatch = film.year?.toString().includes(searchQuery) || false;
 
-  useEffect(() => {
-    loadFilms();
-  }, []);
+            return titleMatch || genreMatch || yearMatch;
+        });
+    };
 
-  const refetch = () => {
-    loadFilms();
-  };
+    const loadFilms = async () => {
+        setLoading(true);
+        setError(null);
+        
+        try {
+            const data = await filmService.getFilms();
+            
+            if (!data || !Array.isArray(data)) {
+                throw new Error('Некорректный формат данных с сервера');
+            }
+            
+            setFilms(data);
+        } catch (err) {
+            console.error('Ошибка загрузки фильмов:', err);
+            setError(err.message || 'Произошла ошибка при загрузке фильмов');
+            setFilms([]);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return {
-    films,
-    loading,
-    error,
-    refetch,
-  };
+    useEffect(() => {
+        loadFilms();
+    }, []);
+
+    const refetch = () => {
+        loadFilms();
+    };
+
+    const filteredFilms = filterFilms(films, searchQuery);
+
+    return {
+        films,
+        filteredFilms,
+        loading,
+        error,
+        refetch,
+        hasSearch: !!searchQuery.trim(),
+        searchQuery
+    };
 };
